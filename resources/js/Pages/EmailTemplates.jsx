@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Grid, Image, Button, IconButton, useClipboard, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './Layout';
 
 const CustomTopBar = () => {
@@ -31,10 +32,9 @@ const EmailTemplates = () => {
     const toast = useToast();
 
     useEffect(() => {
-        fetch('/api/email-templates')
-            .then(res => res.json())
-            .then(data => {
-                setTemplates(data);
+        axios.get('/api/email-templates')
+            .then(res => {
+                setTemplates(res.data);
                 setLoading(false);
             })
             .catch(err => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Button, IconButton, Spinner, Center } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './Layout';
 
 // Null topBar and bottomNav for this screen to hide them, as per HTML
@@ -12,10 +13,9 @@ const QuizQuestion = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/api/quiz/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setQuizData(data);
+        axios.get(`/api/quiz/${id}`)
+            .then(res => {
+                setQuizData(res.data);
                 setLoading(false);
             })
             .catch(err => {

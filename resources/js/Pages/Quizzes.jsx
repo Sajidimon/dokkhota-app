@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Grid, Image, Button, Icon } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './Layout';
 
 const Quizzes = () => {
@@ -8,10 +9,9 @@ const Quizzes = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/quizzes')
-            .then(res => res.json())
-            .then(data => {
-                setQuizzes(data);
+        axios.get('/api/quizzes')
+            .then(res => {
+                setQuizzes(res.data);
                 setLoading(false);
             })
             .catch(err => {

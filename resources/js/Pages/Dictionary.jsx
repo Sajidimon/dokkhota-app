@@ -1,7 +1,8 @@
-import React from 'react';
-import { Box, Heading, Text, Input, Button, Flex, Grid, IconButton } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Heading, Text, Input, Button, Flex, Grid, IconButton, Spinner, Center } from '@chakra-ui/react';
 import Layout from './Layout';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const CustomTopBar = () => {
     const navigate = useNavigate();
@@ -26,6 +27,21 @@ const CustomTopBar = () => {
 };
 
 const Dictionary = () => {
+    const [terms, setTerms] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('/api/dictionary')
+            .then(res => {
+                setTerms(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load dictionary", err);
+                setLoading(false);
+            });
+    }, []);
+
     return (
         <Layout topBar={<CustomTopBar />}>
             <Box pb={8} spaceY={12} sx={{ '& > * + *': { marginTop: '3rem' } }}>

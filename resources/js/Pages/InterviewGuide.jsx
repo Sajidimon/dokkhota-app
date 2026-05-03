@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Grid, Image, Button, IconButton, Spinner, Center } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './Layout';
 
 const CustomTopBar = () => {
@@ -34,10 +35,9 @@ const InterviewGuide = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/interview-guide')
-            .then(res => res.json())
-            .then(data => {
-                setData(data);
+        axios.get('/api/interview-guide')
+            .then(res => {
+                setData(res.data);
                 setLoading(false);
             })
             .catch(err => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Button, IconButton, Image, Grid, Spinner, Center } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './Layout';
 
 // Null topBar and bottomNav for this screen to hide them, as per HTML
@@ -10,10 +11,9 @@ const ProfessionalEmailWriting = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/email-writing')
-            .then(res => res.json())
-            .then(data => {
-                setData(data);
+        axios.get('/api/email-writing')
+            .then(res => {
+                setData(res.data);
                 setLoading(false);
             })
             .catch(err => {

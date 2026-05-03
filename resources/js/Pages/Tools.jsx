@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Grid, GridItem, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './Layout';
 
 const Tools = () => {
@@ -8,10 +9,9 @@ const Tools = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/tools')
-            .then(res => res.json())
-            .then(data => {
-                setTools(data);
+        axios.get('/api/tools')
+            .then(res => {
+                setTools(res.data);
                 setLoading(false);
             })
             .catch(err => {

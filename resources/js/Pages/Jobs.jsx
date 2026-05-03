@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Grid, Image, Button, Icon } from '@chakra-ui/react';
+import axios from 'axios';
 import Layout from './Layout';
 
 const Jobs = () => {
@@ -7,10 +8,9 @@ const Jobs = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/jobs')
-            .then(res => res.json())
-            .then(data => {
-                setJobs(data);
+        axios.get('/api/jobs')
+            .then(res => {
+                setJobs(res.data);
                 setLoading(false);
             })
             .catch(err => {
