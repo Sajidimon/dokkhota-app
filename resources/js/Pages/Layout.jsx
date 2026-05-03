@@ -70,7 +70,7 @@ const BottomNav = () => {
 
     const navItems = [
         { path: '/', icon: 'home', label: 'হোম', isActive: true },
-        { path: '/jobs', icon: 'school', label: 'কুইজ', isActive: false },
+        { path: '/quizzes', icon: 'school', label: 'কুইজ', isActive: false },
         { path: '/tools', icon: 'handyman', label: 'সরঞ্জাম', isActive: false },
         { path: '/login', icon: 'person', label: 'প্রোফাইল', isActive: false },
     ];

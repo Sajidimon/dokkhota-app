@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, Flex, Grid, GridItem, Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Layout from './Layout';
 
 const Tools = () => {
     const [tools, setTools] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('/api/tools')
@@ -47,6 +48,7 @@ const Tools = () => {
                                 <Flex 
                                     as="button" mt={4} bg="brand.primary" color="brand.on-primary-fixed" fontWeight="bold" fontFamily="label" fontSize="lg" py={4} px={8} borderRadius="full" 
                                     boxShadow="0 10px 20px rgba(198,255,0,0.3)" _hover={{ transform: 'scale(1.05)' }} transition="transform 0.2s" align="center" gap={2}
+                                    onClick={() => navigate('/email-templates')}
                                 >
                                     শুরু করুন <Box as="span" className="material-symbols-outlined fill-icon">arrow_forward</Box>
                                 </Flex>
@@ -74,16 +76,19 @@ const Tools = () => {
                         {loading ? (
                             <Text color="brand.on-surface-variant">লোড হচ্ছে...</Text>
                         ) : (
-                            otherTools.map((tool, idx) => (
-                                <Box key={tool.id} as={Link} to="#" role="group" display="block" bg="brand.surface-container-highest" borderRadius="lg" p={6} position="relative" overflow="hidden" transition="all 0.2s" _hover={{ boxShadow: 'lg', transform: 'translateY(-4px)' }}>
-                                    <Box position="absolute" top="0" right="0" w="32" h="32" bg={idx % 2 === 0 ? "brand.secondary-container" : "brand.primary-container"} borderBottomLeftRadius="full" opacity={0.2} _groupHover={{ transform: 'scale(1.1)' }} transition="transform 0.2s" />
-                                    <Flex w="14" h="14" bg="brand.surface" borderRadius="full" align="center" justify="center" mb={4} boxShadow="sm" _groupHover={{ bg: 'brand.primary' }} transition="colors 0.2s">
-                                        <Box as="span" className="material-symbols-outlined" fontSize="3xl" color="brand.on-surface" _groupHover={{ color: 'brand.on-primary-fixed' }}>{tool.icon}</Box>
-                                    </Flex>
-                                    <Heading as="h4" fontFamily="heading" fontSize="xl" fontWeight="bold" color="brand.on-surface" mb={2}>{tool.title}</Heading>
-                                    <Text color="brand.on-surface-variant" fontFamily="body">{tool.description}</Text>
-                                </Box>
-                            ))
+                            otherTools.map((tool, idx) => {
+                                const linkTarget = tool.id === 3 ? '/interview-guide' : '#';
+                                return (
+                                    <Box key={tool.id} as={Link} to={linkTarget} role="group" display="block" bg="brand.surface-container-highest" borderRadius="lg" p={6} position="relative" overflow="hidden" transition="all 0.2s" _hover={{ boxShadow: 'lg', transform: 'translateY(-4px)' }}>
+                                        <Box position="absolute" top="0" right="0" w="32" h="32" bg={idx % 2 === 0 ? "brand.secondary-container" : "brand.primary-container"} borderBottomLeftRadius="full" opacity={0.2} _groupHover={{ transform: 'scale(1.1)' }} transition="transform 0.2s" />
+                                        <Flex w="14" h="14" bg="brand.surface" borderRadius="full" align="center" justify="center" mb={4} boxShadow="sm" _groupHover={{ bg: 'brand.primary' }} transition="colors 0.2s">
+                                            <Box as="span" className="material-symbols-outlined" fontSize="3xl" color="brand.on-surface" _groupHover={{ color: 'brand.on-primary-fixed' }}>{tool.icon}</Box>
+                                        </Flex>
+                                        <Heading as="h4" fontFamily="heading" fontSize="xl" fontWeight="bold" color="brand.on-surface" mb={2}>{tool.title}</Heading>
+                                        <Text color="brand.on-surface-variant" fontFamily="body">{tool.description}</Text>
+                                    </Box>
+                                );
+                            })
                         )}
                     </Grid>
                 </Box>

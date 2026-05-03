@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Heading, Text, Flex, Grid, GridItem, Image, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <Layout>
             {/* Welcome Text */}
@@ -81,6 +84,7 @@ const Home = () => {
                         boxShadow="0 10px 20px -10px #C6FF00" 
                         _hover={{ transform: 'scale(1.02)' }}
                         rightIcon={<Box as="span" className="material-symbols-outlined fill-icon" fontSize="xl">play_arrow</Box>}
+                        onClick={() => navigate('/email-writing')}
                     >
                         শেখা শুরু করুন
                     </Button>
@@ -96,7 +100,18 @@ const Home = () => {
                 
                 <Grid templateColumns="repeat(2, 1fr)" gap={4}>
                     {/* Skill 1 */}
-                    <Box bg="brand.surface-container-low" borderRadius="lg" p={5} position="relative" overflow="hidden" role="group" _hover={{ bg: "brand.surface-variant" }} transition="colors 0.2s">
+                    <Box 
+                        bg="brand.surface-container-low" 
+                        borderRadius="lg" 
+                        p={5} 
+                        position="relative" 
+                        overflow="hidden" 
+                        role="group" 
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }} 
+                        transition="colors 0.2s"
+                        onClick={() => navigate('/quizzes')}
+                    >
                         <Box position="absolute" right="-4" bottom="-4" w="20" h="20" bg="brand.secondary-container" borderRadius="full" opacity={0.5} />
                         <Box as="span" className="material-symbols-outlined" fontSize="4xl" color="brand.secondary" mb={4} position="relative" zIndex={10}>devices</Box>
                         <Heading as="h4" fontFamily="heading" fontWeight="bold" color="brand.on-surface" position="relative" zIndex={10} lineHeight="tight" fontSize="lg">
@@ -105,7 +120,18 @@ const Home = () => {
                     </Box>
 
                     {/* Skill 2 */}
-                    <Box bg="brand.surface-container-low" borderRadius="lg" p={5} position="relative" overflow="hidden" role="group" _hover={{ bg: "brand.surface-variant" }} transition="colors 0.2s">
+                    <Box 
+                        bg="brand.surface-container-low" 
+                        borderRadius="lg" 
+                        p={5} 
+                        position="relative" 
+                        overflow="hidden" 
+                        role="group" 
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }} 
+                        transition="colors 0.2s"
+                        onClick={() => navigate('/quizzes')}
+                    >
                         <Box position="absolute" right="-4" bottom="-4" w="20" h="20" bg="brand.primary-container" borderRadius="full" opacity={0.5} />
                         <Box as="span" className="material-symbols-outlined" fontSize="4xl" color="brand.primary" mb={4} position="relative" zIndex={10}>work</Box>
                         <Heading as="h4" fontFamily="heading" fontWeight="bold" color="brand.on-surface" position="relative" zIndex={10} lineHeight="tight" fontSize="lg">
@@ -114,7 +140,18 @@ const Home = () => {
                     </Box>
 
                     {/* Skill 3 */}
-                    <Box bg="brand.surface-container-low" borderRadius="lg" p={5} position="relative" overflow="hidden" role="group" _hover={{ bg: "brand.surface-variant" }} transition="colors 0.2s">
+                    <Box 
+                        bg="brand.surface-container-low" 
+                        borderRadius="lg" 
+                        p={5} 
+                        position="relative" 
+                        overflow="hidden" 
+                        role="group" 
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }} 
+                        transition="colors 0.2s"
+                        onClick={() => navigate('/quizzes')}
+                    >
                         <Box position="absolute" right="-4" bottom="-4" w="20" h="20" bg="#ffb74d" borderRadius="full" opacity={0.3} />
                         <Box as="span" className="material-symbols-outlined" fontSize="4xl" color="#f57c00" mb={4} position="relative" zIndex={10}>account_balance_wallet</Box>
                         <Heading as="h4" fontFamily="heading" fontWeight="bold" color="brand.on-surface" position="relative" zIndex={10} lineHeight="tight" fontSize="lg">
@@ -123,7 +160,18 @@ const Home = () => {
                     </Box>
 
                     {/* Skill 4 */}
-                    <Box bg="brand.surface-container-low" borderRadius="lg" p={5} position="relative" overflow="hidden" role="group" _hover={{ bg: "brand.surface-variant" }} transition="colors 0.2s">
+                    <Box 
+                        bg="brand.surface-container-low" 
+                        borderRadius="lg" 
+                        p={5} 
+                        position="relative" 
+                        overflow="hidden" 
+                        role="group" 
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }} 
+                        transition="colors 0.2s"
+                        onClick={() => navigate('/quizzes')}
+                    >
                         <Box position="absolute" right="-4" bottom="-4" w="20" h="20" bg="#4dd0e1" borderRadius="full" opacity={0.3} />
                         <Box as="span" className="material-symbols-outlined" fontSize="4xl" color="#0097a7" mb={4} position="relative" zIndex={10}>psychology</Box>
                         <Heading as="h4" fontFamily="heading" fontWeight="bold" color="brand.on-surface" position="relative" zIndex={10} lineHeight="tight" fontSize="lg">
@@ -140,9 +188,45 @@ const Home = () => {
                     দ্রুত সরঞ্জাম
                 </Heading>
                 
-                <Flex gap={4} overflowX="auto" pb={4} className="hide-scrollbar" css={{ scrollSnapType: "x mandatory" }} mx="-4" px={4}>
+                <Flex 
+                    gap={4} 
+                    overflowX="auto" 
+                    pb={4} 
+                    css={{ scrollSnapType: "x mandatory" }} 
+                    mx="-4" 
+                    px={4}
+                    sx={{
+                        '&::-webkit-scrollbar': {
+                            height: '6px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            background: 'transparent',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: 'rgba(0, 0, 0, 0.2)',
+                            borderRadius: 'full',
+                        },
+                        '&::-webkit-scrollbar-thumb:hover': {
+                            background: 'rgba(0, 0, 0, 0.3)',
+                        }
+                    }}
+                >
                     {/* Tool 1 */}
-                    <Flex minW="240px" css={{ scrollSnapAlign: "center" }} bg="brand.surface-container-highest" borderRadius="lg" p={5} direction="column" justify="space-between" border="1px solid" borderColor="rgba(171, 173, 174, 0.15)" boxShadow="sm">
+                    <Flex 
+                        minW="240px" 
+                        css={{ scrollSnapAlign: "center" }} 
+                        bg="brand.surface-container-highest" 
+                        borderRadius="lg" 
+                        p={5} 
+                        direction="column" 
+                        justify="space-between" 
+                        border="1px solid" 
+                        borderColor="rgba(171, 173, 174, 0.15)" 
+                        boxShadow="sm"
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }}
+                        onClick={() => navigate('/email-templates')}
+                    >
                         <Flex justify="space-between" align="flex-start" mb={4}>
                             <Flex w="12" h="12" bg="brand.secondary-container" color="brand.on-secondary-container" borderRadius="full" align="center" justify="center">
                                 <Box as="span" className="material-symbols-outlined">description</Box>
@@ -162,7 +246,21 @@ const Home = () => {
                     </Flex>
 
                     {/* Tool 2 */}
-                    <Flex minW="240px" css={{ scrollSnapAlign: "center" }} bg="brand.surface-container-highest" borderRadius="lg" p={5} direction="column" justify="space-between" border="1px solid" borderColor="rgba(171, 173, 174, 0.15)" boxShadow="sm">
+                    <Flex 
+                        minW="240px" 
+                        css={{ scrollSnapAlign: "center" }} 
+                        bg="brand.surface-container-highest" 
+                        borderRadius="lg" 
+                        p={5} 
+                        direction="column" 
+                        justify="space-between" 
+                        border="1px solid" 
+                        borderColor="rgba(171, 173, 174, 0.15)" 
+                        boxShadow="sm"
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }}
+                        onClick={() => navigate('/dictionary')}
+                    >
                         <Flex justify="space-between" align="flex-start" mb={4}>
                             <Flex w="12" h="12" bg="brand.primary-container" color="brand.on-primary-container" borderRadius="full" align="center" justify="center">
                                 <Box as="span" className="material-symbols-outlined">menu_book</Box>
@@ -177,6 +275,74 @@ const Home = () => {
                             </Heading>
                             <Text fontSize="xs" color="brand.on-surface-variant">
                                 Jargon translated into plain English.
+                            </Text>
+                        </Box>
+                    </Flex>
+
+                    {/* Tool 3 */}
+                    <Flex 
+                        minW="240px" 
+                        css={{ scrollSnapAlign: "center" }} 
+                        bg="brand.surface-container-highest" 
+                        borderRadius="lg" 
+                        p={5} 
+                        direction="column" 
+                        justify="space-between" 
+                        border="1px solid" 
+                        borderColor="rgba(171, 173, 174, 0.15)" 
+                        boxShadow="sm"
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }}
+                        onClick={() => navigate('/email-writing')}
+                    >
+                        <Flex justify="space-between" align="flex-start" mb={4}>
+                            <Flex w="12" h="12" bg="brand.secondary-container" color="brand.on-secondary-container" borderRadius="full" align="center" justify="center">
+                                <Box as="span" className="material-symbols-outlined">mail</Box>
+                            </Flex>
+                            <Box bg="brand.surface" color="brand.on-surface-variant" fontSize="10px" textTransform="uppercase" fontWeight="bold" px={2} py={1} borderRadius="full">
+                                Course
+                            </Box>
+                        </Flex>
+                        <Box>
+                            <Heading as="h4" fontFamily="heading" fontWeight="bold" color="brand.on-surface" mb={1} fontSize="md">
+                                ইমেল রাইটিং
+                            </Heading>
+                            <Text fontSize="xs" color="brand.on-surface-variant">
+                                প্রফেশনাল ইমেল লেখার কোর্স।
+                            </Text>
+                        </Box>
+                    </Flex>
+
+                    {/* Tool 4 */}
+                    <Flex 
+                        minW="240px" 
+                        css={{ scrollSnapAlign: "center" }} 
+                        bg="brand.surface-container-highest" 
+                        borderRadius="lg" 
+                        p={5} 
+                        direction="column" 
+                        justify="space-between" 
+                        border="1px solid" 
+                        borderColor="rgba(171, 173, 174, 0.15)" 
+                        boxShadow="sm"
+                        cursor="pointer"
+                        _hover={{ bg: "brand.surface-variant" }}
+                        onClick={() => navigate('/interview-guide')}
+                    >
+                        <Flex justify="space-between" align="flex-start" mb={4}>
+                            <Flex w="12" h="12" bg="brand.primary-container" color="brand.on-primary-container" borderRadius="full" align="center" justify="center">
+                                <Box as="span" className="material-symbols-outlined">psychology</Box>
+                            </Flex>
+                            <Box bg="brand.surface" color="brand.on-surface-variant" fontSize="10px" textTransform="uppercase" fontWeight="bold" px={2} py={1} borderRadius="full">
+                                Guide
+                            </Box>
+                        </Flex>
+                        <Box>
+                            <Heading as="h4" fontFamily="heading" fontWeight="bold" color="brand.on-surface" mb={1} fontSize="md">
+                                ইন্টারভিউ গাইড
+                            </Heading>
+                            <Text fontSize="xs" color="brand.on-surface-variant">
+                                ইন্টারভিউতে সফল হওয়ার গাইড।
                             </Text>
                         </Box>
                     </Flex>
