@@ -1,21 +1,50 @@
-import React, { useState } from 'react';
-import { Box, Heading, Text, Flex, Button, IconButton } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Box, Heading, Text, Flex, Button, IconButton, Spinner, Center } from '@chakra-ui/react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from './Layout';
 
 // Null topBar and bottomNav for this screen to hide them, as per HTML
 const QuizQuestion = () => {
     const navigate = useNavigate();
-    const [selectedAnswer, setSelectedAnswer] = useState('B');
+    const { id } = useParams();
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [quizData, setQuizData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const options = [
-        { id: 'A', text: 'হে সেখানে,' },
-        { id: 'B', text: 'প্রিয় হায়ারিং ম্যানেজার,' },
-        { id: 'C', text: 'যিনি এটি দেখছেন,' },
-        { id: 'D', text: 'কি খবর,' },
-    ];
+    useEffect(() => {
+        fetch(`/api/quiz/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                setQuizData(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load quiz", err);
+                setLoading(false);
+            });
+    }, [id]);
 
-    const isSelected = (id) => selectedAnswer === id;
+    const isSelected = (optionId) => selectedAnswer === optionId;
+
+    if (loading) {
+        return (
+            <Layout topBar={null}>
+                <Center h="100vh">
+                    <Spinner size="xl" color="brand.primary" />
+                </Center>
+            </Layout>
+        );
+    }
+
+    if (!quizData) {
+        return (
+            <Layout topBar={null}>
+                <Center h="100vh">
+                    <Text>Quiz not found.</Text>
+                </Center>
+            </Layout>
+        );
+    }
 
     return (
         <Layout topBar={null}>
@@ -62,13 +91,13 @@ const QuizQuestion = () => {
                     <Box mb={10} position="relative">
                         <Box as="span" position="absolute" top="-10" left="-4" fontSize="9xl" fontFamily="headline" fontWeight="black" color="brand.surface-container-highest" opacity={0.5} userSelect="none" zIndex={-1}>"</Box>
                         <Heading as="h1" fontFamily="headline" fontSize={{ base: '3xl', md: '4xl' }} fontWeight="extrabold" lineHeight="tight" color="brand.on-surface">
-                            সম্ভাব্য নিয়োগকর্তাকে ইমেল শুরু করার জন্য নিচের কোনটি সবচেয়ে পেশাদার উপায়?
+                            {quizData.question.text}
                         </Heading>
                     </Box>
 
                     {/* Options Form */}
                     <Flex flexDir="column" gap={4} w="full" mb={12}>
-                        {options.map((option) => (
+                        {quizData.question.options.map((option) => (
                             <Flex 
                                 key={option.id} as="label" role="group" position="relative" align="center" p={6} cursor="pointer"
                                 bg={isSelected(option.id) ? 'brand.primary-container' : 'brand.surface-container-lowest'}

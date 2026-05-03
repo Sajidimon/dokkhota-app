@@ -1,11 +1,46 @@
-import React from 'react';
-import { Box, Heading, Text, Flex, Button, IconButton, Image, Grid } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Heading, Text, Flex, Button, IconButton, Image, Grid, Spinner, Center } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 
 // Null topBar and bottomNav for this screen to hide them, as per HTML
 const ProfessionalEmailWriting = () => {
     const navigate = useNavigate();
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/email-writing')
+            .then(res => res.json())
+            .then(data => {
+                setData(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load email writing data", err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return (
+            <Layout topBar={null}>
+                <Center h="100vh">
+                    <Spinner size="xl" color="brand.primary" />
+                </Center>
+            </Layout>
+        );
+    }
+
+    if (!data) {
+        return (
+            <Layout topBar={null}>
+                <Center h="100vh">
+                    <Text>Data not found.</Text>
+                </Center>
+            </Layout>
+        );
+    }
 
     return (
         <Layout topBar={null}>
@@ -22,7 +57,7 @@ const ProfessionalEmailWriting = () => {
                         _hover={{ transform: 'scale(1.05)' }} _active={{ transform: 'scale(0.95)' }} transition="all 0.3s" aria-label="Go back"
                     />
                     <Heading as="h1" fontFamily="heading" fontWeight="bold" fontSize="xl" letterSpacing="tighter" color="brand.on-surface">
-                        পেশাদার ইমেল লেখা
+                        {data.title}
                     </Heading>
                     <IconButton 
                         icon={<Box as="span" className="material-symbols-outlined">more_vert</Box>}
@@ -36,10 +71,10 @@ const ProfessionalEmailWriting = () => {
                     <Box px={2}>
                         <Flex justify="space-between" align="center" mb={2}>
                             <Text fontSize="xs" fontFamily="label" fontWeight="bold" color="brand.on-surface-variant" textTransform="uppercase" letterSpacing="wider">অগ্রগতি</Text>
-                            <Text fontSize="xs" fontFamily="label" fontWeight="bold" color="brand.primary">৬৫%</Text>
+                            <Text fontSize="xs" fontFamily="label" fontWeight="bold" color="brand.primary">{data.progress}%</Text>
                         </Flex>
                         <Box h="3" w="full" bg="brand.surface-container-high" borderRadius="full" overflow="hidden">
-                            <Box h="full" bgGradient="linear(to-r, brand.primary, brand.primary-container)" w="65%" borderRadius="full" />
+                            <Box h="full" bgGradient="linear(to-r, brand.primary, brand.primary-container)" w={`${data.progress}%`} borderRadius="full" />
                         </Box>
                     </Box>
 
@@ -58,7 +93,7 @@ const ProfessionalEmailWriting = () => {
                                     মডিউল ৩
                                 </Box>
                                 <Heading as="h2" fontFamily="heading" fontSize="3xl" fontWeight="bold" lineHeight="tight" letterSpacing="tight" color="brand.on-surface">
-                                    সাবজেক্ট লাইন যা কাজ করে
+                                    {data.sections[0].title}
                                 </Heading>
                             </Box>
                         </Flex>
@@ -67,7 +102,7 @@ const ProfessionalEmailWriting = () => {
                     {/* Content */}
                     <Box spaceY={6} px={2} sx={{ '& > * + *': { marginTop: '1.5rem' } }}>
                         <Text fontFamily="body" fontSize="base" lineHeight="relaxed" color="brand.on-surface-variant">
-                            একটি ইমেলের সাবজেক্ট লাইন হল প্রথম জিনিস যা প্রাপক দেখেন। এটি সিদ্ধান্ত নেয় যে ইমেলটি খোলা হবে নাকি আবর্জনায় যাবে। একটি স্পষ্ট এবং আকর্ষণীয় সাবজেক্ট লাইন পেশাদারিত্বের পরিচয় দেয়।
+                            {data.sections[0].content}
                         </Text>
                         
                         {/* Tip Card */}

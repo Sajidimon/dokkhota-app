@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Heading, Text, Flex, Grid, Image, Button, IconButton } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Heading, Text, Flex, Grid, Image, Button, IconButton, useClipboard, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 
@@ -25,6 +25,38 @@ const CustomTopBar = () => {
 };
 
 const EmailTemplates = () => {
+    const [templates, setTemplates] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [activeCategory, setActiveCategory] = useState('সব');
+    const toast = useToast();
+
+    useEffect(() => {
+        fetch('/api/email-templates')
+            .then(res => res.json())
+            .then(data => {
+                setTemplates(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load templates", err);
+                setLoading(false);
+            });
+    }, []);
+
+    const categories = ['সব', ...new Set(templates.map(t => t.category))];
+    const filteredTemplates = activeCategory === 'সব' ? templates : templates.filter(t => t.category === activeCategory);
+
+    const handleCopy = (content) => {
+        navigator.clipboard.writeText(content);
+        toast({
+            title: "কপি হয়েছে",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "bottom"
+        });
+    };
+
     return (
         <Layout topBar={<CustomTopBar />}>
             <Box pb={8} spaceY={12} sx={{ '& > * + *': { marginTop: '3rem' } }}>
@@ -51,84 +83,50 @@ const EmailTemplates = () => {
 
                 {/* Template Categories */}
                 <Flex overflowX="auto" pb={4} gap={3} mx="-4" px={4} sx={{ '&::-webkit-scrollbar': { display: 'none' }, msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                    <Button bg="brand.primary" color="brand.on-primary" fontFamily="body" fontWeight="bold" fontSize="sm" px={6} py={3} borderRadius="full" letterSpacing="wide" boxShadow="md" _hover={{ bg: 'brand.primary-dim' }} transition="colors" flexShrink={0}>
-                        ইন্টার্নশিপ
-                    </Button>
-                    <Button bg="brand.secondary-container" color="brand.on-secondary-container" fontFamily="body" fontWeight="bold" fontSize="sm" px={6} py={3} borderRadius="full" letterSpacing="wide" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" flexShrink={0}>
-                        নেটওয়ার্কিং
-                    </Button>
-                    <Button bg="brand.surface-container" color="brand.on-surface" fontFamily="body" fontWeight="bold" fontSize="sm" px={6} py={3} borderRadius="full" letterSpacing="wide" _hover={{ bg: 'brand.surface-container-high' }} transition="colors" flexShrink={0}>
-                        ফলো-আপ
-                    </Button>
+                    {categories.map((cat, idx) => (
+                        <Button 
+                            key={idx}
+                            bg={activeCategory === cat ? "brand.primary" : "brand.surface-container"} 
+                            color={activeCategory === cat ? "brand.on-primary" : "brand.on-surface"} 
+                            fontFamily="body" fontWeight="bold" fontSize="sm" px={6} py={3} borderRadius="full" letterSpacing="wide" 
+                            boxShadow={activeCategory === cat ? "md" : "none"}
+                            _hover={{ bg: activeCategory === cat ? 'brand.primary-dim' : 'brand.surface-container-high' }} 
+                            transition="colors" flexShrink={0}
+                            onClick={() => setActiveCategory(cat)}
+                        >
+                            {cat}
+                        </Button>
+                    ))}
                 </Flex>
 
                 {/* Template List */}
                 <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={6}>
-                    {/* Template Card 1 */}
-                    <Flex as="article" flexDir="column" bg="brand.surface-container-lowest" borderRadius="xl" p={6} position="relative" overflow="hidden" role="group" transition="box-shadow 0.3s" _hover={{ boxShadow: 'md' }}>
-                        <Box position="absolute" top="0" right="0" w="24" h="24" bg="rgba(76,100,0,0.1)" borderBottomLeftRadius="full" zIndex={0} />
-                        <Box position="relative" zIndex={10} flex="1">
-                            <Flex align="flex-start" justify="space-between" mb={4}>
-                                <Heading as="h3" fontFamily="heading" fontWeight="bold" fontSize="xl" color="brand.on-surface" pr={4}>ইন্টার্নশিপের জন্য আবেদন</Heading>
-                                <Box as="span" className="material-symbols-outlined" color="brand.primary" bg="rgba(76,100,0,0.1)" p={2} borderRadius="full">work</Box>
+                    {loading ? (
+                        <Text color="brand.on-surface-variant">লোড হচ্ছে...</Text>
+                    ) : (
+                        filteredTemplates.map((template, idx) => (
+                            <Flex key={template.id} as="article" flexDir="column" bg="brand.surface-container-lowest" borderRadius="xl" p={6} position="relative" overflow="hidden" role="group" transition="box-shadow 0.3s" _hover={{ boxShadow: 'md' }}>
+                                <Box position="absolute" top="0" right="0" w="24" h="24" bg={idx % 2 === 0 ? "rgba(76,100,0,0.1)" : "rgba(98,85,123,0.1)"} borderBottomLeftRadius="full" zIndex={0} />
+                                <Box position="relative" zIndex={10} flex="1">
+                                    <Flex align="flex-start" justify="space-between" mb={4}>
+                                        <Heading as="h3" fontFamily="heading" fontWeight="bold" fontSize="xl" color="brand.on-surface" pr={4}>{template.title}</Heading>
+                                        <Box as="span" className="material-symbols-outlined" color={idx % 2 === 0 ? "brand.primary" : "brand.secondary"} bg={idx % 2 === 0 ? "rgba(76,100,0,0.1)" : "rgba(98,85,123,0.1)"} p={2} borderRadius="full">mail</Box>
+                                    </Flex>
+                                    <Text fontFamily="body" fontSize="sm" color="brand.on-surface-variant" mb={6} noOfLines={3}>
+                                        {template.description}
+                                    </Text>
+                                </Box>
+                                <Flex gap={3} mt="auto" pt={4} borderTop="1px solid" borderColor="rgba(171,173,174,0.15)" position="relative" zIndex={10}>
+                                    <Button onClick={() => handleCopy(template.content)} flex="1" bg="brand.secondary-container" color="brand.on-secondary-container" fontFamily="body" fontWeight="semibold" fontSize="sm" py={2.5} px={4} borderRadius="full" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" leftIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">content_copy</Box>}>
+                                        কপি করুন
+                                    </Button>
+                                    <Button flex="1" bgGradient="linear(to-r, brand.primary, brand.primary-container)" color="brand.on-primary" fontFamily="body" fontWeight="bold" fontSize="sm" py={2.5} px={4} borderRadius="full" boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="all 0.3s">
+                                        ব্যবহার করুন
+                                    </Button>
+                                </Flex>
                             </Flex>
-                            <Text fontFamily="body" fontSize="sm" color="brand.on-surface-variant" mb={6} noOfLines={3}>
-                                প্রিয় [নাম], আমি [কোম্পানির নাম] এ [পদের নাম] ইন্টার্নশিপের জন্য আবেদন করতে চাই। আমার [দক্ষতা/অভিজ্ঞতা] আপনাদের দলের জন্য...
-                            </Text>
-                        </Box>
-                        <Flex gap={3} mt="auto" pt={4} borderTop="1px solid" borderColor="rgba(171,173,174,0.15)" position="relative" zIndex={10}>
-                            <Button flex="1" bg="brand.secondary-container" color="brand.on-secondary-container" fontFamily="body" fontWeight="semibold" fontSize="sm" py={2.5} px={4} borderRadius="full" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" leftIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">content_copy</Box>}>
-                                টেমপ্লেট কপি করুন
-                            </Button>
-                            <Button flex="1" bgGradient="linear(to-r, brand.primary, brand.primary-container)" color="brand.on-primary" fontFamily="body" fontWeight="bold" fontSize="sm" py={2.5} px={4} borderRadius="full" boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="all 0.3s">
-                                এটি ব্যবহার করুন
-                            </Button>
-                        </Flex>
-                    </Flex>
-
-                    {/* Template Card 2 */}
-                    <Flex as="article" flexDir="column" bg="brand.surface-container-lowest" borderRadius="xl" p={6} position="relative" overflow="hidden" role="group" transition="box-shadow 0.3s" _hover={{ boxShadow: 'md' }}>
-                        <Box position="absolute" top="0" right="0" w="24" h="24" bg="rgba(98,85,123,0.1)" borderBottomLeftRadius="full" zIndex={0} />
-                        <Box position="relative" zIndex={10} flex="1">
-                            <Flex align="flex-start" justify="space-between" mb={4}>
-                                <Heading as="h3" fontFamily="heading" fontWeight="bold" fontSize="xl" color="brand.on-surface" pr={4}>তথ্যমূলক সাক্ষাৎকারের অনুরোধ</Heading>
-                                <Box as="span" className="material-symbols-outlined" color="brand.secondary" bg="rgba(98,85,123,0.1)" p={2} borderRadius="full">chat_bubble</Box>
-                            </Flex>
-                            <Text fontFamily="body" fontSize="sm" color="brand.on-surface-variant" mb={6} noOfLines={3}>
-                                হ্যালো [নাম], আমি সম্প্রতি আপনার কাজ সম্পর্কে জেনেছি এবং [শিল্প/খাত] সম্পর্কে আপনার দৃষ্টিভঙ্গি জানতে আগ্রহী। আগামী সপ্তাহে...
-                            </Text>
-                        </Box>
-                        <Flex gap={3} mt="auto" pt={4} borderTop="1px solid" borderColor="rgba(171,173,174,0.15)" position="relative" zIndex={10}>
-                            <Button flex="1" bg="brand.secondary-container" color="brand.on-secondary-container" fontFamily="body" fontWeight="semibold" fontSize="sm" py={2.5} px={4} borderRadius="full" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" leftIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">content_copy</Box>}>
-                                টেমপ্লেট কপি করুন
-                            </Button>
-                            <Button flex="1" bgGradient="linear(to-r, brand.primary, brand.primary-container)" color="brand.on-primary" fontFamily="body" fontWeight="bold" fontSize="sm" py={2.5} px={4} borderRadius="full" boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="all 0.3s">
-                                এটি ব্যবহার করুন
-                            </Button>
-                        </Flex>
-                    </Flex>
-
-                    {/* Template Card 3 */}
-                    <Flex as="article" flexDir="column" bg="brand.surface-container-lowest" borderRadius="xl" p={6} position="relative" overflow="hidden" role="group" transition="box-shadow 0.3s" _hover={{ boxShadow: 'md' }}>
-                        <Box position="absolute" top="0" right="0" w="24" h="24" bg="rgba(92,91,91,0.1)" borderBottomLeftRadius="full" zIndex={0} />
-                        <Box position="relative" zIndex={10} flex="1">
-                            <Flex align="flex-start" justify="space-between" mb={4}>
-                                <Heading as="h3" fontFamily="heading" fontWeight="bold" fontSize="xl" color="brand.on-surface" pr={4}>ইন্টারভিউয়ের পর ধন্যবাদ জ্ঞাপন</Heading>
-                                <Box as="span" className="material-symbols-outlined" color="brand.tertiary" bg="rgba(92,91,91,0.1)" p={2} borderRadius="full">handshake</Box>
-                            </Flex>
-                            <Text fontFamily="body" fontSize="sm" color="brand.on-surface-variant" mb={6} noOfLines={3}>
-                                প্রিয় [নাম], আজকের ইন্টারভিউয়ের জন্য আপনাকে অনেক ধন্যবাদ। [পদের নাম] পদের জন্য আলোচনা করে আমি অত্যন্ত আনন্দিত। আমি বিশ্বাস করি...
-                            </Text>
-                        </Box>
-                        <Flex gap={3} mt="auto" pt={4} borderTop="1px solid" borderColor="rgba(171,173,174,0.15)" position="relative" zIndex={10}>
-                            <Button flex="1" bg="brand.secondary-container" color="brand.on-secondary-container" fontFamily="body" fontWeight="semibold" fontSize="sm" py={2.5} px={4} borderRadius="full" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" leftIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">content_copy</Box>}>
-                                টেমপ্লেট কপি করুন
-                            </Button>
-                            <Button flex="1" bgGradient="linear(to-r, brand.primary, brand.primary-container)" color="brand.on-primary" fontFamily="body" fontWeight="bold" fontSize="sm" py={2.5} px={4} borderRadius="full" boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="all 0.3s">
-                                এটি ব্যবহার করুন
-                            </Button>
-                        </Flex>
-                    </Flex>
+                        ))
+                    )}
                 </Grid>
             </Box>
         </Layout>

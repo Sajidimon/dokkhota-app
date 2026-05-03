@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Heading, Text, Flex, Grid, Image, Button, IconButton } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Heading, Text, Flex, Grid, Image, Button, IconButton, Spinner, Center } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 
@@ -30,6 +30,42 @@ const CustomTopBar = () => {
 };
 
 const InterviewGuide = () => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/interview-guide')
+            .then(res => res.json())
+            .then(data => {
+                setData(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load interview guide data", err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return (
+            <Layout topBar={<CustomTopBar />}>
+                <Center h="70vh">
+                    <Spinner size="xl" color="brand.primary" />
+                </Center>
+            </Layout>
+        );
+    }
+
+    if (!data) {
+        return (
+            <Layout topBar={<CustomTopBar />}>
+                <Center h="70vh">
+                    <Text>Data not found.</Text>
+                </Center>
+            </Layout>
+        );
+    }
+
     return (
         <Layout topBar={<CustomTopBar />}>
             <Box pb={8} spaceY={12} pt={{ base: 4, md: 8 }} sx={{ '& > * + *': { marginTop: '3rem' } }}>
@@ -45,24 +81,14 @@ const InterviewGuide = () => {
                                 <Text color="brand.on-surface-variant">ইন্টারভিউর আগে এই বিষয়গুলো নিশ্চিত করুন</Text>
                             </Box>
                             <Flex as="ul" flexDir="column" gap={4}>
-                                <Flex as="li" align="center" gap={4} bg="brand.surface" borderRadius="lg" p={4} boxShadow="sm" border="1px solid" borderColor="rgba(171,173,174,0.15)">
-                                    <Flex w="8" h="8" borderRadius="full" bg="brand.primary-container" color="brand.on-primary-container" align="center" justify="center">
-                                        <Box as="span" className="material-symbols-outlined" fontSize="sm">check</Box>
+                                {data.checklist.map(item => (
+                                    <Flex key={item.id} as="li" align="center" gap={4} bg="brand.surface" borderRadius="lg" p={4} boxShadow="sm" border="1px solid" borderColor="rgba(171,173,174,0.15)">
+                                        <Flex w="8" h="8" borderRadius="full" bg={item.status === 'done' ? "brand.primary-container" : "brand.surface-variant"} color={item.status === 'done' ? "brand.on-primary-container" : "brand.on-surface-variant"} align="center" justify="center">
+                                            <Box as="span" className="material-symbols-outlined" fontSize="sm">{item.status === 'done' ? 'check' : 'pending'}</Box>
+                                        </Flex>
+                                        <Text fontWeight="medium" color="brand.on-surface">{item.text}</Text>
                                     </Flex>
-                                    <Text fontWeight="medium" color="brand.on-surface">কোম্পানি সম্পর্কে গবেষণা</Text>
-                                </Flex>
-                                <Flex as="li" align="center" gap={4} bg="brand.surface" borderRadius="lg" p={4} boxShadow="sm" border="1px solid" borderColor="rgba(171,173,174,0.15)">
-                                    <Flex w="8" h="8" borderRadius="full" bg="brand.primary-container" color="brand.on-primary-container" align="center" justify="center">
-                                        <Box as="span" className="material-symbols-outlined" fontSize="sm">check</Box>
-                                    </Flex>
-                                    <Text fontWeight="medium" color="brand.on-surface">ড্রেস কোড নির্বাচন</Text>
-                                </Flex>
-                                <Flex as="li" align="center" gap={4} bg="brand.surface" borderRadius="lg" p={4} boxShadow="sm" border="1px solid" borderColor="rgba(171,173,174,0.15)">
-                                    <Flex w="8" h="8" borderRadius="full" bg="brand.surface-variant" color="brand.on-surface-variant" align="center" justify="center">
-                                        <Box as="span" className="material-symbols-outlined" fontSize="sm">pending</Box>
-                                    </Flex>
-                                    <Text fontWeight="medium" color="brand.on-surface">সাধারণ প্রশ্নের উত্তর অনুশীলন</Text>
-                                </Flex>
+                                ))}
                             </Flex>
                         </Box>
                         <Flex w={{ base: 'full', md: '33%' }} justify="center" align="center">
@@ -81,24 +107,16 @@ const InterviewGuide = () => {
                         সাধারণ প্রশ্ন
                     </Heading>
                     <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={6}>
-                        {/* Question Card 1 */}
-                        <Flex flexDir="column" justify="space-between" bg="brand.surface-container-highest" borderRadius="lg" p={6} boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="box-shadow 0.2s">
-                            <Heading as="h3" fontSize="xl" fontWeight="bold" color="brand.on-surface" mb={4}>"আপনার সম্পর্কে বলুন"</Heading>
-                            <Flex justify="flex-end" mt={4}>
-                                <Button bg="brand.secondary-container" color="brand.on-secondary-container" px={6} py={6} borderRadius="full" fontWeight="semibold" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" rightIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">arrow_forward</Box>}>
-                                    টিপস দেখুন
-                                </Button>
+                        {data.questions.map(q => (
+                            <Flex key={q.id} flexDir="column" justify="space-between" bg="brand.surface-container-highest" borderRadius="lg" p={6} boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="box-shadow 0.2s">
+                                <Heading as="h3" fontSize="xl" fontWeight="bold" color="brand.on-surface" mb={4}>{q.question}</Heading>
+                                <Flex justify="flex-end" mt={4}>
+                                    <Button bg="brand.secondary-container" color="brand.on-secondary-container" px={6} py={6} borderRadius="full" fontWeight="semibold" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" rightIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">arrow_forward</Box>}>
+                                        টিপস দেখুন
+                                    </Button>
+                                </Flex>
                             </Flex>
-                        </Flex>
-                        {/* Question Card 2 */}
-                        <Flex flexDir="column" justify="space-between" bg="brand.surface-container-highest" borderRadius="lg" p={6} boxShadow="sm" _hover={{ boxShadow: 'md' }} transition="box-shadow 0.2s">
-                            <Heading as="h3" fontSize="xl" fontWeight="bold" color="brand.on-surface" mb={4}>"কেন আপনি এই চাকরিটি চান?"</Heading>
-                            <Flex justify="flex-end" mt={4}>
-                                <Button bg="brand.secondary-container" color="brand.on-secondary-container" px={6} py={6} borderRadius="full" fontWeight="semibold" _hover={{ bg: 'brand.secondary-fixed-dim' }} transition="colors" rightIcon={<Box as="span" className="material-symbols-outlined" fontSize="sm">arrow_forward</Box>}>
-                                    টিপস দেখুন
-                                </Button>
-                            </Flex>
-                        </Flex>
+                        ))}
                     </Grid>
                 </Box>
 
@@ -111,27 +129,18 @@ const InterviewGuide = () => {
                             বডি ল্যাঙ্গুয়েজ টিপস
                         </Heading>
                         <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }} gap={6}>
-                            <Flex flexDir="column" align="center" textAlign="center" bg="rgba(255,255,255,0.6)" backdropFilter="blur(12px)" borderRadius="lg" p={6} boxShadow="sm">
-                                <Flex w="16" h="16" bg="brand.primary-container" color="brand.on-primary-container" borderRadius="full" align="center" justify="center" mb={4} transform="rotate(-6deg)" boxShadow="lg">
-                                    <Box as="span" className="material-symbols-outlined" fontSize="3xl">visibility</Box>
-                                </Flex>
-                                <Heading as="h4" fontWeight="bold" fontSize="md" color="brand.on-surface" mb={2}>আই কন্ট্যাক্ট</Heading>
-                                <Text fontSize="sm" color="brand.on-surface-variant">আত্মবিশ্বাসের সাথে চোখের দিকে তাকান।</Text>
-                            </Flex>
-                            <Flex flexDir="column" align="center" textAlign="center" bg="rgba(255,255,255,0.6)" backdropFilter="blur(12px)" borderRadius="lg" p={6} boxShadow="sm">
-                                <Flex w="16" h="16" bg="brand.primary-container" color="brand.on-primary-container" borderRadius="full" align="center" justify="center" mb={4} transform="rotate(6deg)" boxShadow="lg">
-                                    <Box as="span" className="material-symbols-outlined" fontSize="3xl">front_hand</Box>
-                                </Flex>
-                                <Heading as="h4" fontWeight="bold" fontSize="md" color="brand.on-surface" mb={2}>হ্যান্ডশেক</Heading>
-                                <Text fontSize="sm" color="brand.on-surface-variant">দৃঢ় কিন্তু আরামদায়ক হ্যান্ডশেক করুন।</Text>
-                            </Flex>
-                            <Flex flexDir="column" align="center" textAlign="center" bg="rgba(255,255,255,0.6)" backdropFilter="blur(12px)" borderRadius="lg" p={6} boxShadow="sm">
-                                <Flex w="16" h="16" bg="brand.primary-container" color="brand.on-primary-container" borderRadius="full" align="center" justify="center" mb={4} boxShadow="lg">
-                                    <Box as="span" className="material-symbols-outlined" fontSize="3xl">airline_seat_recline_normal</Box>
-                                </Flex>
-                                <Heading as="h4" fontWeight="bold" fontSize="md" color="brand.on-surface" mb={2}>বসার ভঙ্গি</Heading>
-                                <Text fontSize="sm" color="brand.on-surface-variant">সোজা হয়ে বসুন, একটু সামনের দিকে ঝুঁকে।</Text>
-                            </Flex>
+                            {data.bodyLanguage.map((item, idx) => {
+                                const rotations = ["-6deg", "6deg", "0deg"];
+                                return (
+                                    <Flex key={item.id} flexDir="column" align="center" textAlign="center" bg="rgba(255,255,255,0.6)" backdropFilter="blur(12px)" borderRadius="lg" p={6} boxShadow="sm">
+                                        <Flex w="16" h="16" bg="brand.primary-container" color="brand.on-primary-container" borderRadius="full" align="center" justify="center" mb={4} transform={`rotate(${rotations[idx % 3]})`} boxShadow="lg">
+                                            <Box as="span" className="material-symbols-outlined" fontSize="3xl">{item.icon}</Box>
+                                        </Flex>
+                                        <Heading as="h4" fontWeight="bold" fontSize="md" color="brand.on-surface" mb={2}>{item.title}</Heading>
+                                        <Text fontSize="sm" color="brand.on-surface-variant">{item.desc}</Text>
+                                    </Flex>
+                                );
+                            })}
                         </Grid>
                     </Box>
                 </Box>
