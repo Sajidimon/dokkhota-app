@@ -9,6 +9,11 @@ import Jobs from './Pages/Jobs';
 import Tools from './Pages/Tools';
 import Dictionary from './Pages/Dictionary';
 import Login from './Pages/Login';
+import Quizzes from './Pages/Quizzes';
+import QuizQuestion from './Pages/QuizQuestion';
+import ProfessionalEmailWriting from './Pages/ProfessionalEmailWriting';
+import EmailTemplates from './Pages/EmailTemplates';
+import InterviewGuide from './Pages/InterviewGuide';
 
 const App = () => {
     return (
@@ -20,6 +25,11 @@ const App = () => {
                     <Route path="/tools" element={<Tools />} />
                     <Route path="/dictionary" element={<Dictionary />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/quizzes" element={<Quizzes />} />
+                    <Route path="/quiz/:id" element={<QuizQuestion />} />
+                    <Route path="/email-writing" element={<ProfessionalEmailWriting />} />
+                    <Route path="/email-templates" element={<EmailTemplates />} />
+                    <Route path="/interview-guide" element={<InterviewGuide />} />
                 </Routes>
             </BrowserRouter>
         </ChakraProvider>
