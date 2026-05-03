@@ -2,8 +2,9 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "serve": "bash -c \"(trap 'kill 0' SIGINT; php artisan optimize:clear; npm run dev & php artisan serve)\""
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
