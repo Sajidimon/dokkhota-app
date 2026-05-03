@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="light" lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>দাক্ষতা - সরঞ্জাম</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&amp;family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#0c0f10",
+                        "surface-container-low": "#eff1f2",
+                        "on-primary-fixed-variant": "#506900",
+                        "on-secondary-fixed": "#3c3053",
+                        "on-surface": "#2c2f30",
+                        "on-secondary": "#f8efff",
+                        "on-tertiary": "#f5f2f1",
+                        "secondary-fixed": "#decdfa",
+                        "surface": "#f5f6f7",
+                        "primary-fixed": "#c5fe00",
+                        "secondary": "#62557b",
+                        "on-background": "#2c2f30",
+                        "tertiary-fixed": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#decdfa",
+                        "primary-fixed-dim": "#b9ef00",
+                        "tertiary": "#5c5b5b",
+                        "on-primary": "#dfff8f",
+                        "surface-container": "#e6e8ea",
+                        "inverse-on-surface": "#9b9d9e",
+                        "on-primary-container": "#485e00",
+                        "tertiary-container": "#ffffff",
+                        "on-error-container": "#520c00",
+                        "primary-container": "#c5fe00",
+                        "on-secondary-fixed-variant": "#594c72",
+                        "surface-container-highest": "#dadddf",
+                        "surface-variant": "#dadddf",
+                        "surface-bright": "#f5f6f7",
+                        "on-secondary-container": "#4f4368",
+                        "on-primary-fixed": "#384b00",
+                        "on-tertiary-fixed-variant": "#6e6d6d",
+                        "outline": "#757778",
+                        "on-tertiary-fixed": "#515050",
+                        "secondary-dim": "#56496f",
+                        "primary-dim": "#425700",
+                        "inverse-primary": "#c5fe00",
+                        "error-container": "#f95630",
+                        "surface-dim": "#d1d5d7",
+                        "error": "#b02500",
+                        "on-surface-variant": "#595c5d",
+                        "background": "#f5f6f7",
+                        "outline-variant": "#abadae",
+                        "primary": "#4c6400",
+                        "on-error": "#ffefec",
+                        "error-dim": "#b92902",
+                        "tertiary-fixed-dim": "#f3f0ef",
+                        "on-tertiary-container": "#636262",
+                        "secondary-fixed-dim": "#d0bfeb",
+                        "tertiary-dim": "#504f4f",
+                        "surface-container-high": "#e0e3e4",
+                        "surface-tint": "#4c6400"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface/80 backdrop-blur-xl shadow-[0_60px_60px_rgba(0,0,0,0.06)] px-6 py-4 flex justify-between items-center bg-zinc-100 dark:bg-zinc-900 border-none transition-transform duration-200">
+<button class="text-zinc-500 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<h1 class="font-headline font-bold tracking-tight text-2xl text-[#C6FF00]">সরঞ্জাম</h1>
+<div class="w-8"></div> <!-- Spacer for center alignment -->
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-4 max-w-4xl mx-auto space-y-8">
+<!-- Hero Section: Featured Tool -->
+<section class="relative bg-surface-container-low rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.05)]">
+<div class="absolute -top-10 -right-10 w-48 h-48 bg-primary rounded-full blur-3xl opacity-30 mix-blend-multiply"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary-container rounded-full blur-3xl opacity-40 mix-blend-multiply"></div>
+<div class="p-8 relative z-10 flex flex-col md:flex-row items-center gap-8">
+<div class="flex-1 space-y-4">
+<span class="inline-block bg-primary text-on-primary-fixed px-3 py-1 rounded-full text-sm font-bold uppercase tracking-widest font-label shadow-sm">Featured</span>
+<h2 class="font-headline text-4xl md:text-5xl font-black text-on-surface leading-tight">সিভি মেকার</h2>
+<p class="text-on-surface-variant text-lg max-w-md">প্রফেশনাল সিভি তৈরি করুন মাত্র কয়েক মিনিটে। আমাদের স্মার্ট টেমপ্লেট দিয়ে আপনার ক্যারিয়ারের শুরুটা হোক দারুণ।</p>
+<button class="mt-4 bg-primary text-on-primary-fixed font-bold font-label text-lg py-4 px-8 rounded-full shadow-[0_10px_20px_rgba(198,255,0,0.3)] hover:scale-105 transition-transform flex items-center gap-2">
+                        শুরু করুন <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+</div>
+<div class="w-full md:w-1/2 flex justify-center">
+<div class="relative w-64 h-64 md:w-80 md:h-80">
+<img alt="Collage style illustration of a person holding a resume document with geometric colorful shapes around them" class="w-full h-full object-cover rounded-xl shadow-[20px_20px_0px_#C6FF00] transform -rotate-3 transition-transform hover:rotate-0 duration-300 border-4 border-surface" data-alt="Collage style illustration of a professional holding a resume document with geometric neon shapes and lavender accents around them" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXt19TaaS8LfrM5-TtgBkewIlOU-uZ-aKBXo9OS3UVPNyHH-6L0Z2-y1jE73So4qL2DZRUcv5WkRcC9-JjBLFYgh4vM77YCaOdrDRLlV46j9h1zO_fIZ-x0t0KqHJQ2yzYrHUF1TByr2vTmALb0Yzf4ihLAm10W8ca_V2nLo0uYlym1UauEM0anMo9CRqnne8nQWgGQVV_9zFAxGqLKKef4hXkhsdxv4UlMt9Qip3KPOnWSe14IzoL8TTEA_NTk2w_gDUABE-2"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Tool Categories -->
+<section class="space-y-6">
+<h3 class="font-headline text-2xl font-bold text-on-surface border-l-4 border-primary pl-4">আরও সরঞ্জাম</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Tool Card 1 -->
+<a class="group block bg-surface-container-highest rounded-lg p-6 relative overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1" href="#">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container rounded-bl-full opacity-20 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 bg-surface rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-3xl text-on-surface group-hover:text-on-primary-fixed" data-icon="menu_book">menu_book</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-2">ব্যবহারিক অভিধান</h4>
+<p class="text-on-surface-variant font-body">কর্পোরেট জার্গন এবং কঠিন শব্দের সহজ অর্থ খুঁজে বের করুন।</p>
+</a>
+<!-- Tool Card 2 -->
+<a class="group block bg-surface-container-highest rounded-lg p-6 relative overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1" href="#">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container rounded-bl-full opacity-20 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 bg-surface rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-3xl text-on-surface group-hover:text-on-primary-fixed" data-icon="forum">forum</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-2">ইন্টারভিউ গাইড</h4>
+<p class="text-on-surface-variant font-body">সাধারণ প্রশ্ন এবং সফল ইন্টারভিউ এর টিপস ও ট্রিকস।</p>
+</a>
+<!-- Tool Card 3 -->
+<a class="group block bg-surface-container-highest rounded-lg p-6 relative overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1" href="#">
+<div class="absolute bottom-0 right-0 w-32 h-32 bg-secondary-container rounded-tl-full opacity-20 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 bg-surface rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-3xl text-on-surface group-hover:text-on-primary-fixed" data-icon="mail">mail</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-2">ইমেল টেমপ্লেট</h4>
+<p class="text-on-surface-variant font-body">প্রফেশনাল যোগাযোগের জন্য রেডিমেড ইমেল স্যাম্পল।</p>
+</a>
+<!-- Tool Card 4 -->
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-2xl rounded-t-[3rem] bg-zinc-50 dark:bg-zinc-900 shadow-[0_-10px_40px_rgba(0,0,0,0.04)]">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="home">home</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">হোম</span>
+</a>
+<!-- Learning (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="school">school</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">শেখা</span>
+</a>
+<!-- Tools (Active) -->
+<a class="flex flex-col items-center justify-center bg-[#C6FF00] text-zinc-950 rounded-full px-6 py-2 transition-all duration-300 hover:opacity-80" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="build" style="font-variation-settings: 'FILL' 1;">build</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">টুলস</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="person">person</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider">প্রোফাইল</span>
+</a>
+</nav>
+</body></html>

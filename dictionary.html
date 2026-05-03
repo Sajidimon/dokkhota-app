@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ব্যবহারিক অভিধান - Dokhota</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-dim": "#56496f",
+                      "background": "#f5f6f7",
+                      "primary-container": "#c5fe00",
+                      "on-primary-fixed": "#384b00",
+                      "surface-tint": "#4c6400",
+                      "on-secondary": "#f8efff",
+                      "on-secondary-container": "#4f4368",
+                      "on-primary-container": "#485e00",
+                      "primary-fixed": "#c5fe00",
+                      "on-tertiary": "#f5f2f1",
+                      "on-secondary-fixed": "#3c3053",
+                      "surface-dim": "#d1d5d7",
+                      "tertiary-fixed-dim": "#f3f0ef",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#f5f6f7",
+                      "primary-dim": "#425700",
+                      "surface-container": "#e6e8ea",
+                      "on-secondary-fixed-variant": "#594c72",
+                      "surface-container-low": "#eff1f2",
+                      "error-container": "#f95630",
+                      "tertiary-fixed": "#ffffff",
+                      "inverse-primary": "#c5fe00",
+                      "on-tertiary-fixed-variant": "#6e6d6d",
+                      "secondary-container": "#decdfa",
+                      "on-tertiary-container": "#636262",
+                      "inverse-surface": "#0c0f10",
+                      "outline": "#757778",
+                      "outline-variant": "#abadae",
+                      "on-tertiary-fixed": "#515050",
+                      "tertiary-container": "#ffffff",
+                      "on-primary": "#dfff8f",
+                      "tertiary": "#5c5b5b",
+                      "on-error-container": "#520c00",
+                      "surface-variant": "#dadddf",
+                      "surface-container-highest": "#dadddf",
+                      "primary-fixed-dim": "#b9ef00",
+                      "secondary-fixed-dim": "#d0bfeb",
+                      "surface-container-high": "#e0e3e4",
+                      "on-surface": "#2c2f30",
+                      "error": "#b02500",
+                      "primary": "#4c6400",
+                      "inverse-on-surface": "#9b9d9e",
+                      "tertiary-dim": "#504f4f",
+                      "secondary-fixed": "#decdfa",
+                      "on-error": "#ffefec",
+                      "error-dim": "#b92902",
+                      "surface-bright": "#f5f6f7",
+                      "secondary": "#62557b",
+                      "on-background": "#2c2f30",
+                      "on-surface-variant": "#595c5d",
+                      "on-primary-fixed-variant": "#506900"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Space Grotesk"
+                      ],
+                      "body": [
+                              "Manrope"
+                      ],
+                      "label": [
+                              "Manrope"
+                      ]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #f5f6f7; }
+        h1, h2, h3, .headline { font-family: 'Space Grotesk', sans-serif; }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg docked full-width top-0 shadow-[0_10px_30px_-15px_rgba(198,255,0,0.3)] bg-gradient-to-b from-[#E0CFFC]/20 to-transparent">
+<div class="flex items-center gap-4">
+<button class="text-[#C6FF00] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined text-3xl">arrow_back</span>
+</button>
+<h1 class="font-['Space_Grotesk'] font-bold text-2xl uppercase tracking-tight text-[#C6FF00]">ব্যবহারিক অভিধান</h1>
+</div>
+</header>
+<main class="pt-28 px-6 max-w-4xl mx-auto space-y-12">
+<!-- Hero/Search Section -->
+<section class="relative">
+<div class="absolute -inset-4 bg-primary-fixed/20 blur-3xl rounded-[4rem] z-0"></div>
+<div class="relative z-10 bg-surface-container-highest rounded-xl p-8 flex flex-col gap-6 shadow-2xl overflow-hidden">
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-primary rounded-full blur-2xl opacity-40"></div>
+<h2 class="headline text-4xl font-bold text-on-surface z-10 relative">শব্দের অর্থ খুঁজুন<br/><span class="text-primary">দ্রুত ও সহজে</span></h2>
+<div class="relative z-10 w-full max-w-xl group">
+<span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-on-surface-variant z-20">search</span>
+<input class="w-full pl-16 pr-6 py-5 rounded-full bg-surface-container-lowest border-none focus:ring-2 focus:ring-primary shadow-lg text-lg text-on-surface font-semibold focus:outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="টার্ম খুঁজুন..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary-fixed px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">খুঁজুন</button>
+</div>
+</div>
+</section>
+<!-- Featured Categories -->
+<section class="space-y-4">
+<h3 class="headline text-xl font-bold text-on-surface">ক্যাটাগরি</h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-3 bg-secondary-container text-on-secondary-container rounded-full font-bold text-sm hover:scale-105 transition-transform">সবগুলো</button>
+<button class="px-6 py-3 bg-surface-container-low text-on-surface rounded-full font-bold text-sm border border-outline-variant/15 hover:bg-surface-container-highest transition-colors">ব্যবসায়িক</button>
+<button class="px-6 py-3 bg-surface-container-low text-on-surface rounded-full font-bold text-sm border border-outline-variant/15 hover:bg-surface-container-highest transition-colors">প্রযুক্তি</button>
+<button class="px-6 py-3 bg-surface-container-low text-on-surface rounded-full font-bold text-sm border border-outline-variant/15 hover:bg-surface-container-highest transition-colors">ফ্রিল্যান্সিং</button>
+<button class="px-6 py-3 bg-surface-container-low text-on-surface rounded-full font-bold text-sm border border-outline-variant/15 hover:bg-surface-container-highest transition-colors">ডিজাইন</button>
+</div>
+</section>
+<!-- Dictionary List -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-lg p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-sm border border-outline-variant/15">
+<div class="absolute top-0 right-0 w-16 h-16 bg-secondary-container rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+<div class="relative z-10 flex flex-col h-full gap-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="headline text-2xl font-bold text-on-surface mb-1">Stakeholder</h3>
+<p class="text-primary font-bold text-lg">অংশীজন</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark_add</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-base leading-relaxed mt-auto">যে কোনো ব্যক্তি, গোষ্ঠী বা প্রতিষ্ঠান যাদের কোনো প্রজেক্ট বা ব্যবসার ফলাফলের উপর স্বার্থ বা প্রভাব রয়েছে।</p>
+<div class="flex items-center gap-2 mt-4 pt-4 border-t border-surface-container-high">
+<span class="px-3 py-1 bg-surface-container-low rounded-full text-xs font-bold text-on-surface-variant">ব্যবসায়িক</span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-lg p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-sm border border-outline-variant/15">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary-container rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500 z-0 opacity-50"></div>
+<div class="relative z-10 flex flex-col h-full gap-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="headline text-2xl font-bold text-on-surface mb-1">Algorithm</h3>
+<p class="text-primary font-bold text-lg">অ্যালগরিদম</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark_add</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-base leading-relaxed mt-auto">কোনো সমস্যা সমাধানের জন্য ধাপে ধাপে নির্দেশাবলীর একটি সেট, যা সাধারণত কম্পিউটার প্রোগ্রামিংয়ে ব্যবহৃত হয়।</p>
+<div class="flex items-center gap-2 mt-4 pt-4 border-t border-surface-container-high">
+<span class="px-3 py-1 bg-surface-container-low rounded-full text-xs font-bold text-on-surface-variant">প্রযুক্তি</span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-lg p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-sm border border-outline-variant/15">
+<div class="absolute top-0 right-0 w-16 h-16 bg-secondary-container rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500 z-0"></div>
+<div class="relative z-10 flex flex-col h-full gap-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="headline text-2xl font-bold text-on-surface mb-1">Freelancing</h3>
+<p class="text-primary font-bold text-lg">ফ্রিল্যান্সিং</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark_add</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-base leading-relaxed mt-auto">কোনো নির্দিষ্ট প্রতিষ্ঠানের স্থায়ী কর্মী না হয়ে স্বাধীনভাবে বিভিন্ন ক্লায়েন্টের জন্য চুক্তির ভিত্তিতে কাজ করা।</p>
+<div class="flex items-center gap-2 mt-4 pt-4 border-t border-surface-container-high">
+<span class="px-3 py-1 bg-surface-container-low rounded-full text-xs font-bold text-on-surface-variant">ক্যারিয়ার</span>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest rounded-lg p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 shadow-sm border border-outline-variant/15">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary-container rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150 duration-500 z-0 opacity-50"></div>
+<div class="relative z-10 flex flex-col h-full gap-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="headline text-2xl font-bold text-on-surface mb-1">Typography</h3>
+<p class="text-primary font-bold text-lg">টাইপোগ্রাফি</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark_add</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-base leading-relaxed mt-auto">টেক্সট বা অক্ষরগুলোকে সুন্দর, পাঠযোগ্য এবং আকর্ষণীয়ভাবে সাজানোর শিল্প ও কৌশল।</p>
+<div class="flex items-center gap-2 mt-4 pt-4 border-t border-surface-container-high">
+<span class="px-3 py-1 bg-surface-container-low rounded-full text-xs font-bold text-on-surface-variant">ডিজাইন</span>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/90 dark:bg-slate-950/90 backdrop-blur-2xl docked full-width bottom-0 rounded-t-[3rem] shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.1)] md:hidden before:absolute before:inset-0 before:bg-[#E0CFFC]/10 before:rounded-t-[3rem] before:-z-10">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-2 hover:text-[#C6FF00] transition-colors active:translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">home</span>
+<span class="font-['Manrope'] font-semibold text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#C6FF00] text-black rounded-full px-6 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">menu_book</span>
+<span class="font-['Manrope'] font-semibold text-[10px]">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-2 hover:text-[#C6FF00] transition-colors active:translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">bookmark</span>
+<span class="font-['Manrope'] font-semibold text-[10px]">Saves</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-2 hover:text-[#C6FF00] transition-colors active:translate-y-1 duration-200" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">person</span>
+<span class="font-['Manrope'] font-semibold text-[10px]">Profile</span>
+</a>
+</nav>
+</body></html>
